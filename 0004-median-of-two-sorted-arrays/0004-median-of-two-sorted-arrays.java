@@ -1,71 +1,44 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
+        if (nums1.length > nums2.length) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+
         int n1 = nums1.length;
         int n2 = nums2.length;
 
-        int n = n1 + n2;
+        int low = 0;
+        int high = n1;
 
-        int idx1 = (n - 1) / 2;
-        int idx2 = n / 2;
+        while (low <= high) {
 
-        int i = 0, j = 0;
-        int cnt = 0;
+            int cut1 = (low + high) / 2;
+            int cut2 = (n1 + n2 + 1) / 2 - cut1;
 
-        int ele1 = 0, ele2 = 0;
+            int left1 = (cut1 == 0) ? Integer.MIN_VALUE : nums1[cut1 - 1];
+            int left2 = (cut2 == 0) ? Integer.MIN_VALUE : nums2[cut2 - 1];
 
-        while (i < n1 && j < n2) {
+            int right1 = (cut1 == n1) ? Integer.MAX_VALUE : nums1[cut1];
+            int right2 = (cut2 == n2) ? Integer.MAX_VALUE : nums2[cut2];
 
-            int cur;
+            if (left1 <= right2 && left2 <= right1) {
 
-            if (nums1[i] < nums2[j]) {
-                cur = nums1[i++];
-            } else {
-                cur = nums2[j++];
+                if ((n1 + n2) % 2 == 0) {
+                    return (Math.max(left1, left2) + Math.min(right1, right2)) / 2.0;
+                } else {
+                    return Math.max(left1, left2);
+                }
+            } 
+            else if (left1 > right2) {
+                high = cut1 - 1;
+            } 
+            else {
+                low = cut1 + 1;
             }
-
-            if (cnt == idx1)
-                ele1 = cur;
-
-            if (cnt == idx2)
-                ele2 = cur;
-
-            cnt++;
         }
 
-
-        while (i < n1) {
-
-            int cur = nums1[i++];
-
-            if (cnt == idx1)
-                ele1 = cur;
-
-            if (cnt == idx2)
-                ele2 = cur;
-
-            cnt++;
-        }
-
-
-        while (j < n2) {
-
-            int cur = nums2[j++];
-
-            if (cnt == idx1)
-                ele1 = cur;
-
-            if (cnt == idx2)
-                ele2 = cur;
-
-            cnt++;
-        }
-
-
-        if (n % 2 == 1)
-            return ele2;
-
-        return (ele1 + ele2) / 2.0;
+        return 0.0;
     }
 }
 
