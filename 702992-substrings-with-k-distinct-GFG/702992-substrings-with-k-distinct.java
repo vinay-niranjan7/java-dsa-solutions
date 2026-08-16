@@ -1,28 +1,30 @@
 class Solution {
-    int countSubstr(String s, int k) {
+    public int countSubstr(String s, int k) {
+        int n = s.length();
+        int count = 0;
 
-        int cnt = 0;
-        for (int i = 0; i < s.length(); i++) 
-        {
-            for (int j = i; j < s.length(); j++) 
-            {
-                boolean[] visited = new boolean[26];
-                int distinct = 0;
+        for (int i = 0; i < n; i++) {
 
-                for (int l = i; l <= j; l++) 
-                {
-                    if (!visited[s.charAt(l) - 'a']) {
-                        visited[s.charAt(l) - 'a'] = true;
-                        distinct++;
-                    }
+            int[] freq = new int[26];
+            int distinct = 0;
+
+            for (int j = i; j < n; j++) {
+
+                int index = s.charAt(j) - 'a';
+
+                if (freq[index] == 0) {
+                    distinct++;
                 }
+
+                freq[index]++;
+
                 if (distinct == k) {
-                    cnt++;
+                    count++;
                 }
             }
         }
 
-        return cnt;
+        return count;
     }
 }
 
