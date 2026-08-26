@@ -1,4 +1,4 @@
-# [Cycle Length in Linked List](https://www.geeksforgeeks.org/problems/find-length-of-loop/1?category%5B%5D=Linked+List&company%5B%5D=Adobe&page=1&sortBy=submissions&utm_source=chatgpt.com)
+# [Cycle Length in Linked List](https://www.geeksforgeeks.org/problems/find-length-of-loop/1)
 ## Medium
 Given the head of a linked list. A linked list contains a cycle if its last node is connected to a previous node. If the given list contains a cycle, return the length of the cycle. Otherwise, return 0.
 Note: Internally, the driver code uses an integer x to represent the position (1-based indexing) of the node to which the last node is connected. If x = 0, it means last node points to null which indicating there is no loop.
