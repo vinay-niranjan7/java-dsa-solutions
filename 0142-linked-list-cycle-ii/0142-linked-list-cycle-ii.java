@@ -11,12 +11,22 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        ListNode tmp=head;
-        ArrayList<ListNode> list= new ArrayList<>();
-        while(tmp!=null){
-            if(list.contains(tmp)) return tmp;
-            list.add(tmp);
-            tmp=tmp.next;
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=null && fast.next!=null){
+
+            slow=slow.next;
+            fast=fast.next.next;
+
+            if(slow==fast){
+
+                slow=head;
+                while(slow!=fast){
+                    slow=slow.next;
+                    fast=fast.next;
+                }
+                return slow;
+            }
         }
         return null;
     }
