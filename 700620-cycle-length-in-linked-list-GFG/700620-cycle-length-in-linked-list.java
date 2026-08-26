@@ -11,15 +11,27 @@ class Node {
 
 class Solution {
     public int lengthOfLoop(Node head) {
-        Node tmp=head;
-        ArrayList<Node> list= new ArrayList<>();
-        while(tmp!=null){
-            if(list.contains(tmp)) return list.size()-list.indexOf(tmp);
-            
-            list.add(tmp);
-            tmp=tmp.next;
-        }
-        return 0;
+       Node slow=head;
+       Node fast=head;
+       int count=0;
+       while(fast!=null && fast.next!=null)
+       {
+           slow=slow.next;
+           fast=fast.next.next;
+
+           if(slow==fast)
+           {
+               count=1;
+               slow=slow.next;
+               while(slow!=fast)
+               {
+                   slow=slow.next;
+                   count++;
+               }
+               return count;
+           }
+       }
+       return 0;
     }
 }
 
