@@ -10,26 +10,59 @@
  */
 class Solution {
     public ListNode sortList(ListNode head) {
+        return mergeSortlist(head);
+    }
 
-        if (head == null) return null;
+    public ListNode mergeSortlist(ListNode head) {
+        if (head == null || head.next == null) return head;
 
-        ArrayList<Integer> list = new ArrayList<>();
-        ListNode curr = head;
-        while (curr != null) {
-            list.add(curr.val);
-            curr = curr.next;
+        ListNode mid = findMid(head);
+        ListNode leftHead = head;
+        ListNode rightHead = mid.next;
+        mid.next = null;
+
+        leftHead = mergeSortlist(leftHead);
+        rightHead = mergeSortlist(rightHead);
+
+        return merge(leftHead, rightHead);
+    }
+
+    public ListNode findMid(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
-        Collections.sort(list);
+        return slow;
+    }
 
-        curr = head;
-        int i = 0;
-        while (curr != null) {
-            curr.val = list.get(i++);
-            curr = curr.next;
+    public ListNode merge(ListNode left, ListNode right) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+
+        while (left != null && right != null) {
+            if (left.val <= right.val) {
+                current.next = left;
+                left = left.next;
+            } else {
+                current.next = right;
+                right = right.next;
+            }
+            current = current.next;
         }
 
-        return head;
+        if (left != null) {
+            current.next = left;
+        }
+
+        if (right != null) {
+            current.next = right;
+        }
+
+        return dummy.next;
     }
 }
 
