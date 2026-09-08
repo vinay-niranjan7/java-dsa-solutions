@@ -10,37 +10,20 @@
  * }
  */
 public class Solution {
-    public ListNode findNode(ListNode longer, ListNode shorter, int distance) {
-
-    while(distance > 0) {
-        distance--;
-        longer=longer.next;
-    }
-    while(longer != shorter) {
-        longer=longer.next;
-        shorter=shorter.next;
-    }
-    return longer;
-}
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        ListNode tmp1= headA;
-        ListNode tmp2= headB;
-
-        int len1=0;
-        int len2=0;
-        
-        while(tmp1!=null){
-            len1++;
+        if(headA==null || headB==null) return null;
+        ListNode tmp1=headA;
+        ListNode tmp2=headB;
+        while(tmp1!=tmp2){
             tmp1=tmp1.next;
-        }
-        while(tmp2!=null){
-            len2++;
             tmp2=tmp2.next;
-        }
 
-        if(len1<len2) return findNode(headB,headA,len2-len1);
-        else return findNode(headA,headB,len1-len2);
-    
+            if(tmp1==tmp2) return tmp1;
+
+            if(tmp1==null) tmp1=headB;
+            if(tmp2==null) tmp2=headA;
+        }
+        return tmp1;
     }
 }
 
