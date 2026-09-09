@@ -8,40 +8,51 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-import java.math.BigInteger;
-
 class Solution {
     public ListNode addTwoNumbers(ListNode firstList, ListNode secondList) {
 
-        StringBuilder firstNumber=new StringBuilder();
-        StringBuilder secondNumber=new StringBuilder();
+        ListNode dummyHead=new ListNode(-1);
+        ListNode current=dummyHead;
 
-        while(firstList!=null){
-            firstNumber.append(firstList.val);
-            firstList=firstList.next;
+        ListNode temp1=firstList;
+        ListNode temp2=secondList;
+
+        int carry=0;
+
+        while(temp1!=null || temp2!=null){
+
+            int sum=carry;
+
+            if(temp1!=null){
+                sum+=temp1.val;
+            }
+
+            if(temp2!=null){
+                sum+=temp2.val;
+            }
+
+            ListNode newNode=new ListNode(sum % 10);
+
+            carry=sum/10;
+
+            current.next=newNode;
+            current=current.next;
+
+            if(temp1!=null){
+                temp1=temp1.next;
+            }
+
+            if(temp2!=null){
+                temp2=temp2.next;
+            }
         }
 
-        while(secondList!=null){
-            secondNumber.append(secondList.val);
-            secondList=secondList.next;
+        if(carry!=0){
+            ListNode newNode=new ListNode(carry);
+            current.next=newNode;
         }
 
-        BigInteger number1=new BigInteger(firstNumber.reverse().toString());
-        BigInteger number2=new BigInteger(secondNumber.reverse().toString());
-
-        BigInteger sum=number1.add(number2);
-
-        String result=sum.toString();
-
-        ListNode dummyNode=new ListNode(0);
-        ListNode currentNode=dummyNode;
-
-        for(int i=result.length()-1;i>=0;i--) {
-            currentNode.next=new ListNode(result.charAt(i)-'0');
-            currentNode=currentNode.next;
-        }
-
-        return dummyNode.next;
+        return dummyHead.next;
     }
 }
 
