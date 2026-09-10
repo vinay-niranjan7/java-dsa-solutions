@@ -11,27 +11,25 @@
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
 
-    HashMap<Integer, Integer> map=new HashMap<>();
-    ListNode temp = head;
-
-    while(temp!=null){
-        map.put(temp.val,map.getOrDefault(temp.val,0)+1);
-        temp=temp.next;
-    }
-
     ListNode dummy=new ListNode(0);
-    ListNode curr=dummy;
+    dummy.next=head;
 
-    temp=head;
-    while(temp!=null){
-        if (map.get(temp.val) == 1) {
-            curr.next=new ListNode(temp.val);
-            curr=curr.next;
-        }
-        temp=temp.next;
+    ListNode prev=dummy;
+    ListNode curr=head;
+
+    while(curr!=null){
+
+        if(curr.next!=null && curr.val==curr.next.val){
+            while (curr.next!=null && curr.val==curr.next.val) {
+                curr=curr.next;
+            }
+            prev.next=curr.next;
+        }else
+            prev=prev.next;
+        curr=curr.next;
     }
     return dummy.next;
-}
+    }
 }
 
 // Synced seamlessly with LeetHub Pro
