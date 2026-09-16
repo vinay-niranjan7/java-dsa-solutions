@@ -9,43 +9,62 @@
  * }
  */
 class Solution {
+
+    private ListNode getKthNode(ListNode temp, int k) {
+        k--;
+        while(temp!=null && k>0) {
+            k--;
+            temp=temp.next;
+        }
+        return temp;
+    }
+
+    private ListNode reverseLinkedList(ListNode head) {
+        ListNode prev=null;
+        ListNode curr=head;
+
+        while(curr!=null){
+            ListNode next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+
     public ListNode reverseKGroup(ListNode head, int k) {
 
-        ArrayList<ListNode> list = new ArrayList<>();
+        ListNode temp=head;
+        ListNode prevLast=null;
 
-        // Store nodes
-        ListNode temp = head;
-        while (temp != null) {
-            list.add(temp);
-            temp = temp.next;
-        }
+        while(temp!=null){
 
-        int n = list.size();
+            ListNode kThNode = getKthNode(temp, k);
 
-        // Reverse groups
-        for (int i = 0; i + k <= n; i += k) {
-            int left = i;
-            int right = i + k - 1;
-
-            while (left < right) {
-                ListNode t = list.get(left);
-                list.set(left, list.get(right));
-                list.set(right, t);
-
-                left++;
-                right--;
+            if(kThNode==null){
+                if (prevLast!=null) {
+                    prevLast.next=temp;
+                }
+                break;
             }
+
+            ListNode nextNode = kThNode.next;
+            kThNode.next = null;
+            reverseLinkedList(temp);
+
+            // First group
+            if(temp==head){
+                head=kThNode;
+            } 
+            // Other groups
+            else{
+                prevLast.next=kThNode;
+            }
+
+            prevLast=temp;
+            temp=nextNode;
         }
-
-        // Reconnect nodes
-        for (int i = 0; i < n - 1; i++) {
-            list.get(i).next = list.get(i + 1);
-        }
-
-        if (n > 0)
-            list.get(n - 1).next = null;
-
-        return n == 0 ? null : list.get(0);
+        return head;
     }
 }
 
