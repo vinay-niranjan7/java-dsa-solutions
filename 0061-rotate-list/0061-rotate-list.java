@@ -15,10 +15,19 @@ class Solution {
             return head;
         }
 
+        ListNode tmp=head; 
+        int length=0; 
+        while(tmp!=null){ 
+            length++; 
+            tmp=tmp.next; 
+        }
+
+        k=k%length;
+
         int cnt=0;
         while(cnt<k){
 
-            ListNode tmp=head;
+            tmp=head;
             ListNode prev=null;
 
             while(tmp.next!=null){
