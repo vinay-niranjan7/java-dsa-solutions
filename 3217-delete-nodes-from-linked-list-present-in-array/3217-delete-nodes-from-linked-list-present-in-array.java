@@ -12,25 +12,21 @@ class Solution {
     public ListNode modifiedList(int[] nums, ListNode head) {
     HashSet<Integer> set=new HashSet<>();
 
-    for (int num:nums) {
+    for(int num:nums){
         set.add(num);
     }
 
-    while (head!=null && set.contains(head.val)) {
+    while(head!=null && set.contains(head.val)){
         head=head.next;
     }
 
-    ListNode tmp=head;
-    ListNode prev=null;
-
-    while(tmp!=null)
-    {
-        if(set.contains(tmp.val)){
-            prev.next=tmp.next;
-        } else {
-            prev=tmp;
+    ListNode curr = head;
+    while(curr!=null && curr.next!=null){
+        if(set.contains(curr.next.val)){
+            curr.next=curr.next.next;
+        }else{
+            curr=curr.next;
         }
-        tmp=tmp.next;
     }
     return head; 
     }
