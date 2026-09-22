@@ -1,37 +1,29 @@
 class Solution {
-
-    private int upperBound(int[] arr, int target){
-        int low=0;
-        int high=arr.length;
-
-        while(low<high){
-            int mid=low +(high-low)/2;
-            if(arr[mid]<=target)
-                low=mid+1;
-            else
-                high=mid;
-        }
-        return low;
-    }
-
     public int kthSmallest(int[][] matrix, int k) {
 
         int n=matrix.length;
         int low=matrix[0][0];
-        int high=matrix[n - 1][n - 1];
+        int high=matrix[n-1][n-1];
 
-        while(low< high){
-
-            int mid=low +(high-low)/2;
+        while(low<high)
+        {
+            int mid =low+(high-low)/2;
             int cnt=0;
-            for(int i=0;i<n;i++) {
-                cnt+=upperBound(matrix[i], mid);
+            int row=n-1;
+            int col=0;
+            //Counting elements <=mid
+            while(row>=0&&col<n)
+            {
+                if(matrix[row][col]<=mid){
+                    cnt+=row+1;
+                    col++;
+                }else
+                    row--;
             }
-
             if(cnt<k)
-                low = mid + 1;
+                low=mid+1;
             else
-                high = mid;
+                high=mid; 
         }
         return low;
     }
