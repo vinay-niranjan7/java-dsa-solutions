@@ -1,16 +1,13 @@
 class Solution {
     public boolean checkIfPangram(String sentence) {
-        HashMap<Character,Integer> map=new HashMap<>();
-        for (char ch = 'a'; ch <= 'z'; ch++) {
-            map.put(ch, 0);
+        boolean arr[]=new boolean[26];
+
+        for(char c : sentence.toCharArray()){
+            arr[c-'a']=true;
         }
-        for(char c: sentence.toCharArray()){
-            map.put(c,map.getOrDefault(c,0)+1);
-        }
-        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == 0) {
-                return false;
-            }
+
+        for(boolean val:arr){
+            if(val==false) return false;
         }
         return true;
     }
