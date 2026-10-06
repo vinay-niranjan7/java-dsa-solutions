@@ -1,6 +1,14 @@
 class Solution {
     public double myPow(double x, int n) {
-        return Math.pow(x,n);
+        if (n < 0) {
+            x = 1 / x;
+            n = -n;
+        }
+        double ans=1;
+        for(int i=1;i<=n;i++){
+            ans*=x;
+        }
+        return ans;
     }
 }
 
