@@ -1,6 +1,7 @@
 class Solution {
     public int findPermutationDifference(String s, String t) {
-        
+         if(s.length()!=t.length()) return -1;
+
         int[] pos = new int[26];
         for(int i = 0; i < s.length(); i++){
             pos[s.charAt(i) -'a']=i;
