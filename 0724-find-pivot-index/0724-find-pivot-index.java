@@ -1,21 +1,24 @@
+
 class Solution {
     public int pivotIndex(int[] nums) {
-        int prefixSum=Integer.MIN_VALUE;
-        int postfixSum=Integer.MIN_VALUE;
-        for(int i=0;i<nums.length;i++){
-            prefixSum=0;
-            postfixSum=0;
-            for(int j=0;j<i;j++){
-                prefixSum+=nums[j];
-            }
-            for(int k=i+1;k<nums.length;k++){
-                postfixSum+=nums[k];
-            }
-            if(prefixSum == postfixSum) return i;
+        int totalSum=0;
+        int leftSum=0;
+
+        for(int num : nums)
+            totalSum+=num;
+
+        for(int i = 0; i < nums.length; i++){
+            int rightSum =totalSum-leftSum-nums[i];
+
+            if(leftSum == rightSum)
+                return i;
+        
+            leftSum+=nums[i];
         }
-        return -1; 
+        return -1;
     }
 }
+
 
 // Synced seamlessly with LeetHub Pro
 // Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
