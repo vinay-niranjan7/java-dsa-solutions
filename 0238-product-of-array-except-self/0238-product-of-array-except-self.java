@@ -6,25 +6,20 @@ class Solution {
               prodend = new int[n],
               res = new int[n];
 
-        prodstart[0] = nums[0];
+        prodstart[0] = 1;
+        prodend[n-1] = 1;
 
-        for (int i = 1; i < n; i++) {
-            prodstart[i] = prodstart[i - 1] * nums[i];
+        for(int i = 1; i < n; i++){
+            prodstart[i] = prodstart[i-1] * nums[i-1];
         }
 
-        prodend[n - 1] = nums[n - 1];
-
-        for (int i = n - 2; i >= 0; i--) {
-            prodend[i] = prodend[i + 1] * nums[i];
+        for(int i = n-2; i >= 0; i--){
+            prodend[i] = prodend[i+1] * nums[i+1];
         }
 
-        res[0] = prodend[1];
-        res[n - 1] = prodstart[n - 2];
-
-        for (int i = 1; i < n - 1; i++) {
-            res[i] = prodstart[i - 1] * prodend[i + 1];
+        for(int i = 0; i < n; i++){
+            res[i] = prodstart[i] * prodend[i];
         }
-
         return res;
     }
 }
