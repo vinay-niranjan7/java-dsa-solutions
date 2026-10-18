@@ -1,6 +1,6 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        HashMap<Integer,Integer> map=new HashMap<>();
+        TreeMap<Integer,Integer> map=new TreeMap<>();
         for (int n : nums) {
             if (map.getOrDefault(n, 0) < 2) {
                 map.put(n, map.getOrDefault(n, 0) + 1);
