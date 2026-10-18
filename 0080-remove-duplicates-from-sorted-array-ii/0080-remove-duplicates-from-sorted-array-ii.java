@@ -1,18 +1,9 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        TreeMap<Integer,Integer> map=new TreeMap<>();
-        for (int n : nums) {
-            if (map.getOrDefault(n, 0) < 2) {
-                map.put(n, map.getOrDefault(n, 0) + 1);
-            }
-        }
-        int i = 0;
-        for (int key : map.keySet()) {
-            int count=map.get(key);
-
-            while (count-- > 0) {
-                nums[i++]=key;
-            }
+        int i=0;
+        for(int n: nums){
+            if(i<2 || n!=nums[i-2])
+                nums[i++]=n;
         }
         return i;
     }
