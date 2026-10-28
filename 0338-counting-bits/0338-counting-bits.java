@@ -1,18 +1,11 @@
 class Solution {
     public int[] countBits(int n) {
         int arr[]=new int[n+1];
+    
         for(int i=0;i<=n;i++){
-            arr[i]=calcOnes(i);
+            arr[i] = arr[i/2] + (i%2);
         }
         return arr;
-    }
-    public int calcOnes(int num){
-        int cnt=0;
-        while(num>0){
-            if(num%2==1) cnt++;
-            num=num/2;
-        }
-        return cnt;
     }
 }
 
