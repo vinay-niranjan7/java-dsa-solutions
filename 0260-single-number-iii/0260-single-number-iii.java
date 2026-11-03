@@ -1,19 +1,20 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        HashSet<Integer> set = new HashSet<>();
-        int xorr = 0;
-        for(int num : nums){
-            xorr ^= num;
-            set.add(num);
+        int ans[] = {-1,-1};
+        
+        int idx=0;
+        for(int i=0;i<nums.length;i++){
+            boolean found = false;
+            for(int j=0;j<nums.length;j++){
+                if(i!=j && nums[i]==nums[j]){
+                    found=true;
+                    break;
+                }    
+            }
+            if(!found)
+                ans[idx++]=nums[i];
         }
-
-        for(int num : set){
-            int check = xorr ^ num;
-
-            if(set.contains(check)) 
-                return new int[]{num, check};
-        }
-        return new int[]{-1, -1};
+        return ans;
     }
 }
 
