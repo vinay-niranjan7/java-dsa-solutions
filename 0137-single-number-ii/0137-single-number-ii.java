@@ -1,20 +1,16 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int ones=0;
+        int tows=0;
 
         for(int num : nums){
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            ones = (ones^num) & ~tows;
+            tows = (tows^ num) & ~ones;
         }
-
-        for(int num : nums){
-            if (map.get(num) == 1) {
-                return num;
-            }
-        }
-        return -1;
+        
+        return ones;
     }
 }
-
 
 // Synced seamlessly with LeetHub Pro
 // Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
