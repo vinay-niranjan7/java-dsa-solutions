@@ -1,19 +1,19 @@
 class Solution {
     public int[] evenOddBit(int n) {
-        int odd=0,even=0;
-        StringBuilder str= new StringBuilder();
+        int even = 0;
+        int odd = 0;
+        int index = 0;
+        
         while(n>0){
-            str.append(n%2);
-            n=n/2;
-        }
-        str.reverse();
-        for(int i=0; i<str.length(); i++){
-            int index = str.length()-1-i;
-            if(str.charAt(i)=='1'){
-                if(index%2 == 0) even++;
+            int val = n%2;
+            if(val==1){
+                if(index%2==0) even++;
                 else odd++;
             }
+            n=n/2;
+            index++;
         }
+        
         return new int[]{even,odd};
     }
 }
