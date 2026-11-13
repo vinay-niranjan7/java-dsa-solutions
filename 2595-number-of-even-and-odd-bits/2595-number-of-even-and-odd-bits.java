@@ -5,12 +5,12 @@ class Solution {
         int index = 0;
         
         while(n>0){
-            int val = n%2;
-            if(val==1){
-                if(index%2==0) even++;
+             if((n&1) == 1){
+                if(index % 2 == 0) even++;
                 else odd++;
             }
-            n=n/2;
+
+            n = n>>1;
             index++;
         }
         
