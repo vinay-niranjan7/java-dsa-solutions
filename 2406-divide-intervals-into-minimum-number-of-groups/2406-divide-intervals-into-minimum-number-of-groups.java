@@ -13,18 +13,15 @@ class Solution {
         Arrays.sort(end);
 
         int i = 0, j = 0;
-        int res = 0;
-        int groups = 0;
+        int res=0;
 
         while (i < n) {
             if (start[i] <= end[j]) {
-                groups++;
                 i++;
             } else {
-                groups--;
                 j++;
             }
-            res = Math.max(res, groups);
+            res = Math.max(res,i-j);
         }
 
         return res;
