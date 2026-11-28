@@ -1,16 +1,18 @@
 class Solution {
     public int jump(int[] nums) {
-        int ans=calcJumps(0,0,nums);
-        return ans;
-    }
+        int n = nums.length;
+        int l=0,r=0,jumps=0;
 
-    private int calcJumps(int idx, int jumps, int nums[]){
-        if(idx == nums.length-1 ) return jumps;
-        int mini=Integer.MAX_VALUE;
-        for(int i=1; i<=nums[idx] && idx+i<nums.length; i++){
-            mini=Math.min(mini, calcJumps(idx+i, jumps+1, nums));
+        while(r < n-1){
+            int max=0;
+            for(int i=l; i<=r; i++){
+                max=Math.max(max,i+nums[i]);
+            }
+            l=r+1;
+            r=max;
+            jumps++;
         }
-        return mini;
+        return jumps;
     }
 }
 
